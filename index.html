@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuWeather</title>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="pagewrapper">
+      <div class="topsection">
+        <div class="titlebox box animate__animated animate__fadeInDown">
+          <h2>NeuWeather</h2>
+        </div>
+        <div class="buttons animate__animated animate__fadeInDown">
+          <div class="tempconversion circle" id="tempconversion">
+            <h2>&deg;</h2>
+            <span>F</span>
+          </div>
+          <div class="mode circle">
+            <div class="mode-circle"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="weathersection box animate__animated animate__fadeInLeft animate__delay-1s"
+      >
+        <div class="content">
+          <h2 class="city"></h2>
+          <h1 class="temp"></h1>
+          <h2 class="others"></h2>
+        </div>
+        <div class="icon">
+          <img id="weathericon" src="" alt="" />
+          <span id="description"></span>
+        </div>
+      </div>
+      <div class="otherparameters">
+        <div
+          class="parameter box animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          <div class="pressure">
+            <h2 class="parametertitle">Pressure</h2>
+            <h1></h1>
+            <h2 class="parametertitle">hPa</h2>
+          </div>
+        </div>
+        <div
+          class="parameter box animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          <div class="humidity">
+            <h2 class="parametertitle">Humidity</h2>
+            <h1></h1>
+          </div>
+        </div>
+        <div
+          class="parameter box animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          <div class="windspeed">
+            <h2 class="parametertitle">Wind Speed</h2>
+            <h1>1.5</h1>
+            <h2 class="parametertitle">m/s</h2>
+          </div>
+        </div>
+        <div
+          class="parameter box animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          <div class="cloudiness">
+            <h2 class="parametertitle">Cloudiness</h2>
+            <h1></h1>
+          </div>
+        </div>
+        <div
+          class="parameter box animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          <div class="sunriseandsunset">
+            <h2 class="sun">Sunrise</h2>
+            <h1 class="time sunrise">5:00AM</h1>
+            <h2 class="sun">Sunset</h2>
+            <h1 class="time sunset">7:00PM</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var long;
+      var lat;
+      var temp;
+      var feels_like;
+      var min;
+      var max;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          long = position.coords.longitude;
+          lat = position.coords.latitude;
+          fetch(
+            "https://api.openweathermap.org/data/2.5/weather?lat=" +
+              lat +
+              "&lon=" +
+              long +
+              "&appid=91983a136d5bb9416e6de7337da3b4c6&units=metric"
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              temp = data["main"]["temp"];
+              feels_like = data["main"]["feels_like"];
+              min = data["main"]["temp_min"];
+              max = data["main"]["temp_max"];
+              document.getElementById("weathericon").src =
+                "pngs/" + data["weather"][0]["icon"] + ".png";
+              console.log(data);
+              document.getElementById("description").innerHTML =
+                data["weather"][0]["description"];
+              document.querySelector(".city").innerHTML = data["name"];
+              document.querySelector(".temp").innerHTML =
+                Math.floor(temp) + "&deg; C";
+              document.querySelector(".others").innerHTML =
+                "Feels Like: " +
+                Math.floor(feels_like) +
+                "&deg; C Min: " +
+                +Math.floor(min) +
+                "&deg; C Max: " +
+                +Math.floor(max) +
+                "&deg; C";
+              document.querySelector(".pressure>h1").innerHTML =
+                data["main"]["pressure"];
+              document.querySelector(".humidity>h1").innerHTML =
+                data["main"]["humidity"] + "%";
+              document.querySelector(".windspeed>h1").innerHTML =
+                data["wind"]["speed"];
+              document.querySelector(".cloudiness>h1").innerHTML =
+                data["clouds"]["all"] + "%";
+              let unix_timestamp = data["sys"]["sunrise"];
+              var date = new Date(unix_timestamp * 1000);
+              var hours = date.getHours();
+              var minutes = "0" + date.getMinutes();
+              var seconds = "0" + date.getSeconds();
+              var formattedTime = hours + ":" + minutes.substr(-2);
+              document.querySelector(".sunrise").innerHTML = formattedTime;
+              let unix_timestamp2 = data["sys"]["sunset"];
+              var date2 = new Date(unix_timestamp2 * 1000);
+              var hours2 = date2.getHours();
+              var minutes2 = "0" + date2.getMinutes();
+              var seconds2 = "0" + date2.getSeconds();
+              var formattedTime2 = hours2 + ":" + minutes2.substr(-2);
+              document.querySelector(".sunset").innerHTML = formattedTime2;
+            });
+        });
+      }
+      document.body.style.backgroundColor = "#f2f2f2";
+      var box = document.querySelectorAll(".box");
+      var circle = document.querySelectorAll(".circle");
+      for (i = 0; i < circle.length; i++) {
+        circle[i].style.backgroundColor = "#f2f2f2";
+      }
+      for (i = 0; i < box.length; i++) {
+        box[i].style.backgroundColor = "#f2f2f2";
+      }
+      document.querySelector(".mode").addEventListener("click", changemode);
+      function changemode() {
+        for (i = 0; i < box.length; i++) {
+          box[i].classList.toggle("active");
+        }
+        for (i = 0; i < circle.length; i++) {
+          circle[i].classList.toggle("active");
+        }
+        document.body.classList.toggle("active");
+        document.querySelector(".icon").classList.toggle("active");
+        document.querySelector(".mode-circle").classList.toggle("active");
+        document.querySelector("span").classList.toggle("active");
+      }
+      document
+        .querySelector("#tempconversion")
+        .addEventListener("click", tempconvert);
+      function tempconvert() {
+        if (document.querySelector("#tempconversion>span").innerHTML == "F") {
+          document.querySelector("#tempconversion>span").innerHTML = "C";
+          document.querySelector(".temp").innerHTML =
+            Math.floor((temp * 9) / 5 + 32) + "&deg; F";
+          document.querySelector(".others").innerHTML =
+            "Feels Like: " +
+            Math.floor((feels_like * 9) / 5 + 32) +
+            "&deg; C Min: " +
+            +Math.floor((min * 9) / 5 + 32) +
+            "&deg; C Max: " +
+            +Math.floor((max * 9) / 5 + 32) +
+            "&deg; C";
+        } else {
+          document.querySelector("#tempconversion>span").innerHTML = "F";
+          document.querySelector(".temp").innerHTML =
+            Math.floor(temp) + "&deg; C";
+          document.querySelector(".others").innerHTML =
+            "Feels Like: " +
+            Math.floor(feels_like) +
+            "&deg; C Min: " +
+            +Math.floor(min) +
+            "&deg; C Max: " +
+            +Math.floor(max) +
+            "&deg; C";
+        }
+      }
+    </script>
+  </body>
+</html>

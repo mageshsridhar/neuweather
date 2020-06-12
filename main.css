@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f2f2f2;
+  color: #212121;
+  transition: ease 500ms;
+}
+body.active {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #212121 !important;
+  color: #f2f2f2;
+}
+.pagewrapper {
+  width: 90%;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.box.active {
+  border-radius: 10px;
+  background-color: #212121 !important;
+  box-shadow: 4px 4px 8px #1c1c1c, -4px -4px 8px #262626;
+}
+.box {
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  box-shadow: 4px 4px 8px #cecece, -4px -4px 8px #ffffff;
+  transition: ease 500ms;
+}
+
+.circle {
+  border-radius: 100px;
+  background: #f2f2f2;
+  box-shadow: 4px 4px 8px #cecece, -4px -4px 8px #ffffff;
+  transition: ease 500ms;
+}
+.circle.active {
+  border-radius: 100px;
+  background: #212121 !important;
+  box-shadow: 4px 4px 8px #1c1c1c, -4px -4px 8px #262626;
+}
+.topsection {
+  display: flex;
+  justify-content: space-between;
+}
+.titlebox {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.titlebox > h2 {
+  font-size: 20px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  height: 50px;
+  vertical-align: middle;
+}
+.tempconversion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+.mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+.mode-circle {
+  width: 20px;
+  height: 20px;
+  background-color: #212121;
+  border-radius: 100px;
+  transition: ease 2s;
+}
+.mode-circle.active {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: #f2f2f2 !important;
+}
+.weathersection {
+  display: flex;
+  align-items: center;
+  height: 150px;
+  padding: 35px;
+  justify-content: space-between;
+}
+.city,
+.others {
+  font-size: 25px;
+  line-height: 40px;
+}
+.temp {
+  font-size: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.otherparameters {
+  display: flex;
+  justify-content: space-between;
+}
+.parameter {
+  height: 280px;
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pressure,
+.windspeed,
+.humidity,
+.sunriseandsunset,
+.cloudiness {
+  text-align: center;
+}
+.parametertitle {
+  font-size: 25px;
+}
+h1 {
+  font-size: 60px;
+}
+.sun {
+  font-size: 22px;
+}
+.time {
+  font-size: 42px;
+}
+.icon {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  transition: ease-in-out 1500ms;
+}
+#weathericon {
+  height: 100px;
+  width: 100px;
+}
+span {
+  text-transform: capitalize;
+  color: #212121;
+  font-weight: 700;
+  font-size: 20px;
+  transition: ease-in-out 1500ms;
+}
+span.active {
+  text-transform: capitalize;
+  color: #f2f2f2;
+  font-weight: 700;
+}
+.icon.active {
+  filter: invert(1);
+}
+@media (min-width: 320px) and (max-width: 500px) {
+  .pagewrapper {
+    height: 180vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .topsection {
+    flex-grow: 0.5;
+    display: flex;
+    align-items: center;
+  }
+  .titlebox {
+    width: 50%;
+  }
+  .buttons {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .circle {
+    margin-left: 20px;
+  }
+  .weathersection {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    flex-grow: 2;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex-grow: 3;
+    justify-content: center;
+    align-items: center;
+  }
+  .otherparameters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 4;
+    width: auto;
+  }
+  .parameter {
+    height: 15%;
+    width: auto;
+  }
+  .parameter > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .parametertitle {
+    font-size: 15px;
+  }
+  .parameter > div > h1 {
+    font-size: 30px;
+  }
+  .sun {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .parameter:nth-child(5) {
+    height: 25%;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .parameter {
+    width: 170px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .parameter {
+    width: 125px;
+  }
+  .parametertitle {
+    font-size: 15px;
+  }
+  .parameter > div > h1 {
+    font-size: 40px;
+  }
+  .sun {
+    font-size: 15px;
+  }
+}
