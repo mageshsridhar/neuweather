@@ -63,7 +63,7 @@
         >
           <div class="windspeed">
             <h2 class="parametertitle">Wind Speed</h2>
-            <h1>1.5</h1>
+            <h1></h1>
             <h2 class="parametertitle">m/s</h2>
           </div>
         </div>
@@ -80,9 +80,9 @@
         >
           <div class="sunriseandsunset">
             <h2 class="sun">Sunrise</h2>
-            <h1 class="time sunrise">5:00AM</h1>
+            <h1 class="time sunrise"></h1>
             <h2 class="sun">Sunset</h2>
-            <h1 class="time sunset">7:00PM</h1>
+            <h1 class="time sunset"></h1>
           </div>
         </div>
       </div>
@@ -186,11 +186,11 @@
           document.querySelector(".others").innerHTML =
             "Feels Like: " +
             Math.floor((feels_like * 9) / 5 + 32) +
-            "&deg; C Min: " +
+            "&deg; F Min: " +
             +Math.floor((min * 9) / 5 + 32) +
-            "&deg; C Max: " +
+            "&deg; F Max: " +
             +Math.floor((max * 9) / 5 + 32) +
-            "&deg; C";
+            "&deg; F";
         } else {
           document.querySelector("#tempconversion>span").innerHTML = "F";
           document.querySelector(".temp").innerHTML =
